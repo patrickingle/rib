@@ -69,6 +69,16 @@ var BCommonProperties = {
         defaultValue: "default",
         htmlAttribute: "data-position"
     },
+    readonly: {
+        type: "boolean",
+        defaultValue: false,
+        htmlAttribute: "readonly"
+	},
+	required: {
+        type: "boolean",
+        defaultValue: false,
+        htmlAttribute: "required"
+	},
     text: {
         type: "string",
         defaultValue: "Button"
@@ -1142,170 +1152,6 @@ var BWidgetRegistry = {
         }
     },
 
-    /**
-     * Represents a camera capture entry
-     * from: http://www.html5rocks.com/en/tutorials/getusermedia/intro/
-     */
-    CameraCapture: {
-		parent: "Base",
-		displayLabel: "Camera Capture Input",
-        paletteImageName: "jqm_cameracapture_input.svg",
-        editable: {
-            selector: "label",
-            propertyName: "label"
-        },
-        properties: {
-            id: {
-                type: "string",
-                htmlSelector: "input",
-                htmlAttribute: "id",
-                autoGenerate: "IMAGE"
-            },
-            name: {
-                type: "string",
-                htmlSelector: "input",
-                htmlAttribute: "name"
-            },
-            mini: $.extend({}, BCommonProperties.mini, {
-                htmlSelector: "input"
-            }),
-            theme: $.extend({}, BCommonProperties.theme, {
-                htmlSelector: "input"
-            }),
-            label: {
-                type: "string",
-                defaultValue: "Choose Image"
-            },
-            disabled: $.extend({}, BCommonProperties.disabled, {
-                htmlSelector: "input"
-            }),
-            nativecontrol: $.extend({}, BCommonProperties.nativecontrol, {
-                htmlSelector: "input"
-            }),
-            align: {
-                type: "string",
-                options: [ "left", "center", "right" ],
-                defaultValue: "center",
-                htmlAttribute: "style",
-                htmlValueMap: {
-                    "left": "display: block; margin: auto auto auto 0px",
-                    "center": "display: block; margin: 0 auto",
-                    "right": "display: block; margin: auto 0px auto auto"
-                }
-            }
-        },
-        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="file" id="%ID%" accept="image/*;capture=camera"/></div>'
-	},
-	
-    /**
-     * Represents a video capture entry
-     * from: http://www.html5rocks.com/en/tutorials/getusermedia/intro/
-     */
-	VideoCapture: {
-		parent: "Base",
-		displayLabel: "Video Capture Input",
-        paletteImageName: "jqm_videocapture_input.svg",
-        editable: {
-            selector: "label",
-            propertyName: "label"
-        },
-        properties: {
-            id: {
-                type: "string",
-                htmlSelector: "input",
-                htmlAttribute: "id",
-                autoGenerate: "VIDEO"
-            },
-            name: {
-                type: "string",
-                htmlSelector: "input",
-                htmlAttribute: "name"
-            },
-            mini: $.extend({}, BCommonProperties.mini, {
-                htmlSelector: "input"
-            }),
-            theme: $.extend({}, BCommonProperties.theme, {
-                htmlSelector: "input"
-            }),
-            label: {
-                type: "string",
-                defaultValue: "Choose Image"
-            },
-            disabled: $.extend({}, BCommonProperties.disabled, {
-                htmlSelector: "input"
-            }),
-            nativecontrol: $.extend({}, BCommonProperties.nativecontrol, {
-                htmlSelector: "input"
-            }),
-            align: {
-                type: "string",
-                options: [ "left", "center", "right" ],
-                defaultValue: "center",
-                htmlAttribute: "style",
-                htmlValueMap: {
-                    "left": "display: block; margin: auto auto auto 0px",
-                    "center": "display: block; margin: 0 auto",
-                    "right": "display: block; margin: auto 0px auto auto"
-                }
-            }
-        },
-        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="file" id="%ID%" accept="video/*;capture=camcorder"/></div>'
-	},
-
-    /**
-     * Represents a audio capture entry
-     * from: http://www.html5rocks.com/en/tutorials/getusermedia/intro/
-     */
-     AudioCapture: {
-		parent: "Base",
-		displayLabel: "Audio Capture Input",
-        paletteImageName: "jqm_audiocapture_input.svg",
-        editable: {
-            selector: "label",
-            propertyName: "label"
-        },
-        properties: {
-            id: {
-                type: "string",
-                htmlSelector: "input",
-                htmlAttribute: "id",
-                autoGenerate: "VIDEO"
-            },
-            name: {
-                type: "string",
-                htmlSelector: "input",
-                htmlAttribute: "name"
-            },
-            mini: $.extend({}, BCommonProperties.mini, {
-                htmlSelector: "input"
-            }),
-            theme: $.extend({}, BCommonProperties.theme, {
-                htmlSelector: "input"
-            }),
-            label: {
-                type: "string",
-                defaultValue: "Choose Image"
-            },
-            disabled: $.extend({}, BCommonProperties.disabled, {
-                htmlSelector: "input"
-            }),
-            nativecontrol: $.extend({}, BCommonProperties.nativecontrol, {
-                htmlSelector: "input"
-            }),
-            align: {
-                type: "string",
-                options: [ "left", "center", "right" ],
-                defaultValue: "center",
-                htmlAttribute: "style",
-                htmlValueMap: {
-                    "left": "display: block; margin: auto auto auto 0px",
-                    "center": "display: block; margin: 0 auto",
-                    "right": "display: block; margin: auto 0px auto auto"
-                }
-            }
-        },
-        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="file" id="%ID%" accept="audio/*;capture=microphone"/></div>'
-	 },
 
     /**
      * Represents a text entry.
@@ -1354,6 +1200,12 @@ var BWidgetRegistry = {
                 htmlSelector: "input",
                 htmlAttribute: "value"
             },
+            required: $.extend({}, BCommonProperties.required,{
+            	htmlSelector: "input"
+            }),
+            readonly: $.extend({}, BCommonProperties.readonly, {
+            	htmlSelector: "input"
+            }),
             disabled: $.extend({}, BCommonProperties.disabled, {
                 htmlSelector: "input"
             }),
@@ -1373,6 +1225,262 @@ var BWidgetRegistry = {
         },
         template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="text"/></div>'
     },
+
+    /**
+     * Represents a camera capture entry
+     */
+    CameraCapture: {
+		parent: "TextInput",
+		displayLabel: "Camera Capture Input",
+        paletteImageName: "jqm_cameracapture_input.svg",
+        properties: {
+            id: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "id",
+                autoGenerate: "IMAGE"
+            },
+            align: {
+                type: "string",
+                options: [ "left", "center", "right" ],
+                defaultValue: "center",
+                htmlAttribute: "style",
+                htmlValueMap: {
+                    "left": "display: block; margin: auto auto auto 0px",
+                    "center": "display: block; margin: 0 auto",
+                    "right": "display: block; margin: auto 0px auto auto"
+                }
+            }
+        },
+        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="file" id="%ID%" accept="image/*;capture=camera"/></div>'
+	},
+	
+    /**
+     * Represents a video capture entry
+     */
+	VideoCapture: {
+		parent: "TextInput",
+		displayLabel: "Video Capture Input",
+        paletteImageName: "jqm_videocapture_input.svg",
+        properties: {
+            id: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "id",
+                autoGenerate: "VIDEO"
+            },
+            align: {
+                type: "string",
+                options: [ "left", "center", "right" ],
+                defaultValue: "center",
+                htmlAttribute: "style",
+                htmlValueMap: {
+                    "left": "display: block; margin: auto auto auto 0px",
+                    "center": "display: block; margin: 0 auto",
+                    "right": "display: block; margin: auto 0px auto auto"
+                }
+            }
+        },
+        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="file" id="%ID%" accept="video/*;capture=camcorder"/></div>'
+	},
+
+    /**
+     * Represents a audio capture entry
+     */
+     AudioCapture: {
+		parent: "TextInput",
+		displayLabel: "Audio Capture Input",
+        paletteImageName: "jqm_audiocapture_input.svg",
+        properties: {
+            id: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "id",
+                autoGenerate: "AUDIO"
+            },
+        },
+        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="file" id="%ID%" accept="audio/*;capture=microphone"/></div>'
+	 },
+	 
+    /**
+     * Represents a password entry.
+     */
+	 PasswordInput: {
+        parent: "TextInput",
+        displayLabel: "Password Input",
+        paletteImageName: "jqm_password_input.svg",
+        properties: {
+            id: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "id",
+                autoGenerate: "password"
+            },
+        },
+        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="password"/></div>'
+	 },
+	 
+    /**
+     * Represents a search entry
+     */
+	SearchInput: {
+        parent: "TextInput",
+        displayLabel: "Search Input",
+        paletteImageName: "jqm_search_input.svg",
+        properties: {
+            id: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "id",
+                autoGenerate: "search"
+            },
+        },
+        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="search"/></div>'
+	},
+	
+    /**
+     * Represents a number entry
+     */
+	NumberInput: {
+        parent: "TextInput",
+        displayLabel: "Number Input",
+        paletteImageName: "jqm_number_input.svg",
+        properties: {
+            id: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "id",
+                autoGenerate: "number"
+            },
+            minimum: {
+                type: "number",
+                defaultValue: 0,
+                htmlSelector: "input",
+                htmlAttribute: "min"
+			},
+			maximum: {
+                type: "number",
+                defaultValue: 99,
+                htmlSelector: "input",
+                htmlAttribute: "max"
+			},
+        },
+        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="number" min="%MINIMUM%" max="%MAXIMUM%"/></div>'
+	},
+	
+    /**
+     * Represents a date entry
+     */
+	DateInput: {
+        parent: "TextInput",
+        displayLabel: "Date Input",
+        paletteImageName: "jqm_date_input.svg",
+        properties: {
+            id: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "id",
+                autoGenerate: "date"
+            },
+        },
+        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="date" /></div>'
+	},
+	
+    /**
+     * Represents a color entry
+     */
+	ColorInput: {
+        parent: "TextInput",
+        displayLabel: "Color Input",
+        paletteImageName: "jqm_color_input.svg",
+        properties: {
+            id: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "id",
+                autoGenerate: "color"
+            },
+        },
+        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="color" /></div>'
+	},
+	
+    /**
+     * Represents a email entry
+     */
+	EmailInput: {
+        parent: "TextInput",
+        displayLabel: "Email Input",
+        paletteImageName: "jqm_email_input.svg",
+        properties: {
+            id: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "id",
+                autoGenerate: "email"
+            },
+        },
+        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="email" /></div>'
+	},
+	
+	MonthInput: {
+        parent: "TextInput",
+        displayLabel: "Month Input",
+        paletteImageName: "jqm_month_input.svg",
+        properties: {
+            id: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "id",
+                autoGenerate: "month"
+            },
+        },
+        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="month" /></div>'
+	},
+	
+	WeekInput: {
+        parent: "TextInput",
+        displayLabel: "Week Input",
+        paletteImageName: "jqm_week_input.svg",
+        properties: {
+            id: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "id",
+                autoGenerate: "email"
+            },
+        },
+        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="week" /></div>'
+	},
+	
+	TimeInput: {
+        parent: "TextInput",
+        displayLabel: "Time Input",
+        paletteImageName: "jqm_time_input.svg",
+        properties: {
+            id: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "id",
+                autoGenerate: "time"
+            },
+        },
+        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="time" /></div>'
+	},
+	
+	UrlInput: {
+        parent: "TextInput",
+        displayLabel: "URL Input",
+        paletteImageName: "jqm_url_input.svg",
+        properties: {
+            id: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "id",
+                autoGenerate: "url"
+            },
+        },
+        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="url" /></div>'
+	},
 
     /**
      * Represents a text area entry.
