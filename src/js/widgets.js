@@ -1143,6 +1143,171 @@ var BWidgetRegistry = {
     },
 
     /**
+     * Represents a camera capture entry
+     * from: http://www.html5rocks.com/en/tutorials/getusermedia/intro/
+     */
+    CameraCapture: {
+		parent: "Base",
+		displayLabel: "Camera Capture Input",
+        paletteImageName: "jqm_cameracapture_input.svg",
+        editable: {
+            selector: "label",
+            propertyName: "label"
+        },
+        properties: {
+            id: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "id",
+                autoGenerate: "IMAGE"
+            },
+            name: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "name"
+            },
+            mini: $.extend({}, BCommonProperties.mini, {
+                htmlSelector: "input"
+            }),
+            theme: $.extend({}, BCommonProperties.theme, {
+                htmlSelector: "input"
+            }),
+            label: {
+                type: "string",
+                defaultValue: "Choose Image"
+            },
+            disabled: $.extend({}, BCommonProperties.disabled, {
+                htmlSelector: "input"
+            }),
+            nativecontrol: $.extend({}, BCommonProperties.nativecontrol, {
+                htmlSelector: "input"
+            }),
+            align: {
+                type: "string",
+                options: [ "left", "center", "right" ],
+                defaultValue: "center",
+                htmlAttribute: "style",
+                htmlValueMap: {
+                    "left": "display: block; margin: auto auto auto 0px",
+                    "center": "display: block; margin: 0 auto",
+                    "right": "display: block; margin: auto 0px auto auto"
+                }
+            }
+        },
+        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="file" id="%ID%" accept="image/*;capture=camera"/></div>'
+	},
+	
+    /**
+     * Represents a video capture entry
+     * from: http://www.html5rocks.com/en/tutorials/getusermedia/intro/
+     */
+	VideoCapture: {
+		parent: "Base",
+		displayLabel: "Video Capture Input",
+        paletteImageName: "jqm_videocapture_input.svg",
+        editable: {
+            selector: "label",
+            propertyName: "label"
+        },
+        properties: {
+            id: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "id",
+                autoGenerate: "VIDEO"
+            },
+            name: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "name"
+            },
+            mini: $.extend({}, BCommonProperties.mini, {
+                htmlSelector: "input"
+            }),
+            theme: $.extend({}, BCommonProperties.theme, {
+                htmlSelector: "input"
+            }),
+            label: {
+                type: "string",
+                defaultValue: "Choose Image"
+            },
+            disabled: $.extend({}, BCommonProperties.disabled, {
+                htmlSelector: "input"
+            }),
+            nativecontrol: $.extend({}, BCommonProperties.nativecontrol, {
+                htmlSelector: "input"
+            }),
+            align: {
+                type: "string",
+                options: [ "left", "center", "right" ],
+                defaultValue: "center",
+                htmlAttribute: "style",
+                htmlValueMap: {
+                    "left": "display: block; margin: auto auto auto 0px",
+                    "center": "display: block; margin: 0 auto",
+                    "right": "display: block; margin: auto 0px auto auto"
+                }
+            }
+        },
+        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="file" id="%ID%" accept="video/*;capture=camcorder"/></div>'
+	},
+
+    /**
+     * Represents a audio capture entry
+     * from: http://www.html5rocks.com/en/tutorials/getusermedia/intro/
+     */
+     AudioCapture: {
+		parent: "Base",
+		displayLabel: "Audio Capture Input",
+        paletteImageName: "jqm_audiocapture_input.svg",
+        editable: {
+            selector: "label",
+            propertyName: "label"
+        },
+        properties: {
+            id: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "id",
+                autoGenerate: "VIDEO"
+            },
+            name: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "name"
+            },
+            mini: $.extend({}, BCommonProperties.mini, {
+                htmlSelector: "input"
+            }),
+            theme: $.extend({}, BCommonProperties.theme, {
+                htmlSelector: "input"
+            }),
+            label: {
+                type: "string",
+                defaultValue: "Choose Image"
+            },
+            disabled: $.extend({}, BCommonProperties.disabled, {
+                htmlSelector: "input"
+            }),
+            nativecontrol: $.extend({}, BCommonProperties.nativecontrol, {
+                htmlSelector: "input"
+            }),
+            align: {
+                type: "string",
+                options: [ "left", "center", "right" ],
+                defaultValue: "center",
+                htmlAttribute: "style",
+                htmlValueMap: {
+                    "left": "display: block; margin: auto auto auto 0px",
+                    "center": "display: block; margin: 0 auto",
+                    "right": "display: block; margin: auto 0px auto auto"
+                }
+            }
+        },
+        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="file" id="%ID%" accept="audio/*;capture=microphone"/></div>'
+	 },
+
+    /**
      * Represents a text entry.
      */
     TextInput: {

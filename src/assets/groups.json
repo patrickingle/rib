@@ -41,7 +41,8 @@
                                     "ThumbnailSplitList"
                             ]
                 }
-            ]
+            ],
+            "Media": ["CameraCapture","VideoCapture","AudioCapture"]
         }
     ],
 

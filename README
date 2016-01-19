@@ -1,3 +1,31 @@
+About this Fork:
+===============
+The original code has nor been updated in 3-4 years (as of Jan 19, 2016) and I wanted to added additionally HTML5 functionality for RAD mobile development.
+
+Building an App/Play Store ready package:
+========================================
+When have a project ready to publish to the stores, you can use the following projects to build a native hybrid mobile app and integrate your RIB project.
+
+Android: https://github.com/patrickingle/html5-to-android
+iOS: https://github.com/patrickingle/intel-xdk-to-xcode
+
+You need a MAC to build and deploy the Xcode project, there is a pay-service at macincloud.com. The Android can be built under Windows, MAC or Linux using Android Studio.
+
+
+Publication
+===========
+The following publication, "Rapid Interface Builder: A new fast track to Mobile Hybrid Development" available on
+Amazon at http://www.amazon.com/dp/B00X23YBNO
+<br/>
+<a href="http://www.amazon.com/dp/B00X23YBNO" title="Rapid Interface Builder: A new fast track to Mobile Hybrid Development"><img src="http://ecx.images-amazon.com/images/I/51OPvNaKfkL._SX312_BO1,204,203,200_.jpg" alt="Rapid Interface Builder" width="320" height="250"></a>
+<br/>
+
+Other Helpful Links:
+===================
+
+Rapid Interface Builder INSTALL AND RUN -> https://www.youtube.com/watch?v=zvyyOWzqrjs
+
+
 Prerequisites:
 ==============
 1) RIB supports running only in a Chromium/Chrome browser at this time. It
