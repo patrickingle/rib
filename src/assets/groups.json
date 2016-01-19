@@ -42,7 +42,8 @@
                             ]
                 }
             ],
-            "Media": ["CameraCapture","VideoCapture","AudioCapture"]
+            "Media": ["CameraCapture","VideoCapture","AudioCapture"],
+            "HTML5": ["SearchInput", "NumberInput", "DateInput", "ColorInput", "EmailInput", "MonthInput", "WeekInput", "TimeInput", "UrlInput","CameraCapture","VideoCapture","AudioCapture"]
         }
     ],
 

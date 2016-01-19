@@ -12,7 +12,7 @@
 window.BlobBuilder = window.BlobBuilder || window.MozBlobBuilder || window.WebKitBlobBuilder;
 window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
 window.resolveLocalFileSystemURL = window.resolveLocalFileSystemURL || window.webkitResolveLocalFileSystemURL;
-window.storageInfo = window.storageInfo || window.webkitStorageInfo;
+window.storageInfo = navigator.webkitPersistentStorage; // window.storageInfo || window.webkitStorageInfo;
 
 
 /**
@@ -99,7 +99,7 @@ $(function () {
         // Check the quota
         storageInfo.queryUsageAndQuota(type, function (usage, quota) {
             // If the quota can't meet requirement, then request more quota
-            if ((type === window.PERSISTENT) && (quota < size)) {
+            if ((type === window.PERSISTENT) && (quota < usage)) {
                 storageInfo.requestQuota(type, size, function (grantedBytes) {
                     // If the user click the "cancle" button, then create a temporary fs
                     if (grantedBytes <= 0) {

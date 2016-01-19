@@ -2,6 +2,12 @@ About this Fork:
 ===============
 The original code has nor been updated in 3-4 years (as of Jan 19, 2016) and I wanted to added additionally HTML5 functionality for RAD mobile development.
 
+Testing the Updates:
+===================
+
+Navigate to http://my-api.us/rib
+
+
 Building an App/Play Store ready package:
 ========================================
 When have a project ready to publish to the stores, you can use the following projects to build a native hybrid mobile app and integrate your RIB project.
