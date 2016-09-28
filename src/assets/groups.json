@@ -4,7 +4,7 @@
         "jqm_input_boolean":["ToggleSwitch", "RadioButton", "RadioGroup", "Checkbox", "CheckboxGroup"],
         "jqm_other_inputs":[ {
                     "Form": ["Form"],
-                    "Text": ["TextInput", "TextArea", "PasswordInput", "SearchInput", "NumberInput", "DateInput", "ColorInput", "EmailInput", "MonthInput", "WeekInput", "TimeInput", "UrlInput"],
+                    "Text": ["TextInput", "TextArea"],
                     "Select": ["SelectMenu"],
                     "Number": ["Slider"]
             }
@@ -43,7 +43,7 @@
                 }
             ],
             "Media": ["CameraCapture","VideoCapture","AudioCapture"],
-            "HTML5": ["SearchInput", "NumberInput", "DateInput", "ColorInput", "EmailInput", "MonthInput", "WeekInput", "TimeInput", "UrlInput","CameraCapture","VideoCapture","AudioCapture"]
+            "HTML5": ["TextInput","CameraCapture","VideoCapture","AudioCapture"]
         }
     ],
 

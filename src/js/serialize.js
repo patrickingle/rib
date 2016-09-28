@@ -189,8 +189,10 @@ $(function () {
         // apply the HTML attributes
         wrapper = $("<div>").append(widget);
         for (selector in selMap) {
-            wrapper.find(selector)
-                .attr(selMap[selector]);
+            if (selector !== "input") {
+                wrapper.find(selector)
+                    .attr(selMap[selector]);
+            }
         }
 
         if (domNodes.length === 0) {

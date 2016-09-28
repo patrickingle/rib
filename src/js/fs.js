@@ -9,11 +9,12 @@
  */
 "use strict";
 
+ 
 window.BlobBuilder = window.BlobBuilder || window.MozBlobBuilder || window.WebKitBlobBuilder;
 window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
 window.resolveLocalFileSystemURL = window.resolveLocalFileSystemURL || window.webkitResolveLocalFileSystemURL;
-window.storageInfo = navigator.webkitPersistentStorage; // window.storageInfo || window.webkitStorageInfo;
-
+//window.storageInfo = window.storageInfo || window.webkitStorageInfo;
+window.storageInfo = navigator.webkitTemporaryStorage || navigator.webkitPersistentStorage;
 
 /**
  * Global object to access File System utils.
@@ -25,6 +26,7 @@ $(function () {
     fsType: window.PERSISTENT,
     fsSize: 20*1024*1024,
     fs: null,
+    db: null,
     deferredOperations: [],
     /**
      * Acceptable uploaded file types
@@ -73,8 +75,8 @@ $(function () {
         // Create a sandbox filesystem
         successFS = function (filesystem) {
             fsUtils.fs = filesystem;
-            dumplog("A sandbox filesystem: " + fsUtils.fs.name + " was created;");
-            dumplog(fsUtils.fs.name + " type: " + type + ", size: " + size );
+            //dumplog("A sandbox filesystem: " + fsUtils.fs.name + " was created;");
+            //dumplog(fsUtils.fs.name + " type: " + type + ", size: " + size );
             // Create a default target window and append it
             // to the document.body
             if (!$('iframe#' + fsUtils.defaultTarget).length) {
@@ -92,11 +94,13 @@ $(function () {
             }
         };
 
-        if (!(storageInfo && requestFileSystem)) {
+        //if (!(storageInfo && requestFileSystem)) {
+        if (!requestFileSystem) {
             console.error("Filesystem not available");
             return;
         }
         // Check the quota
+        /*
         storageInfo.queryUsageAndQuota(type, function (usage, quota) {
             // If the quota can't meet requirement, then request more quota
             if ((type === window.PERSISTENT) && (quota < usage)) {
@@ -125,6 +129,8 @@ $(function () {
                 requestFileSystem(type, size, successFS, onError);
             }
         }, onError)
+        */
+        requestFileSystem(type, size, successFS, onError);
     },
 
     /**

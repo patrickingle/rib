@@ -1171,10 +1171,22 @@ var BWidgetRegistry = {
                 htmlAttribute: "id",
                 autoGenerate: "text"
             },
+            type: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "type",
+                options: ["text","color","date","datetime","datetime-local","email","month","number","range","search","tel","time","url","week"],
+                defaultValue: "text"
+            },
             name: {
                 type: "string",
                 htmlSelector: "input",
                 htmlAttribute: "name"
+            },
+            title: {
+                type: "string",
+                htmlSelector: "input",
+                htmlAttribute: "title"
             },
             hint: {
                 type: "string",
@@ -1221,17 +1233,144 @@ var BWidgetRegistry = {
                 type: "event",
                 defaultValue: "",
                 visible: false
+            },
+            autocomplete: {
+                type: "string",
+                options: [ "","off", "on" ],
+                htmlSelector: "input",
+                htmlAttribute: "autocomplete",
+                defaultValue: ""
+            },
+            autofocus: {
+                type: "boolean",
+                defaultValue: false,
+                displayName: "Autofocus",
+                htmlSelector: "input",
+                htmlAttribute: "autofocus"
+            },
+            form: {},
+            formaction: {},
+            formenctype: {},
+            formmethod: {},
+            formnovalidate: {},
+            formtarget: {},
+            height: {},
+            width: {},
+            list: {},
+            min: {
+                type: "integer",
+                defaultValue: 0,
+                htmlAttribute: "min",
+                htmlSelector: "input"
+            },
+            max: {
+                type: "integer",
+                defaultValue: 100,
+                htmlAttribute: "max",
+                htmlSelector: "input"
+            },
+            multiple: {
+                type: "boolean",
+                defaultValue: false,
+                displayName: "Mulitple",
+                htmlSelector: "input",
+                htmlAttribute: "multiple"
+            },
+            pattern: {
+                type: "string",
+                defaultValue: "",
+                displayName: "Pattern (regexp)",
+                htmlSelector: "input",
+                htmlAttribute: "pattern"
+            },
+            step: {
+                type: "integer",
+                defaultValue: 1,
+                forceAttribute: true,
+                htmlAttribute: "step",
+                htmlSelector: "input"
             }
         },
-        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="text"/></div>'
+        //template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="text"/></div>'
+        template: function (node) {
+            var type, id, label, code, hint, value, autocomplete, mini, step, min, max, nativecontrol, required, disabled, readonly, pattern, multiple, autofocus;
+
+            type = node.getProperty("type");
+            id = node.getProperty("id");
+            label = node.getProperty("label");
+            hint = node.getProperty("hint");
+            value = node.getProperty("value");
+            autocomplete = node.getProperty("autocomplete");
+            mini = node.getProperty("mini");
+            step = node.getProperty("step");
+            min = node.getProperty("min");
+            max = node.getProperty("max");
+            nativecontrol = node.getProperty("nativecontrol");
+            required = node.getProperty("required");
+            disabled = node.getProperty("disabled");
+            readonly = node.getProperty("readonly");
+            pattern = node.getProperty('pattern');
+            multiple = node.getProperty('multiple');
+            autofocus = node.getProperty('autofocus');
+            
+            var input = '<input ';
+            if (type === 'list') {
+                input = input + 'list="'+id+'"';
+            } else {
+                input = input + 'type="'+type+'"';
+                input = input + ' id="'+id+'"';
+                input = input + ' name="'+id+'"';
+                input = input + ' value="'+value+'"';
+            }
+            if (autofocus === true) {
+                input = input + ' autofocus="'+autofocus+'"';
+            }
+            if (type==="text" || type==="search" || type==="url" || type==="tel" || type==="email" || type==="password") {
+                input = input + ' placeholder="'+hint+'"';
+                if (pattern !== "") {
+                    input = input + ' pattern="'+pattern+'"';
+                }
+            }
+            if (autocomplete !== "") {
+                input = input + ' autocomplete="'+autocomplete+'"';
+            }
+            if (mini === true) {
+                input = input + ' data-mini="true"';
+            }
+            if (type==="number" || type==="range" || type==="date" || type==="datetime-local" || type==="month" || type==="time" || type==="week") {
+                input = input + ' step="'+step+'" min="'+min+'" max="'+max+'"';
+            }
+            if (nativecontrol) {
+                input = input + ' data-role="none"';
+            }
+            if (type==="text" || type==="search" || type==="url" || type==="tel" || type==="email" || type==="password" || type==="date" || type==="number") {
+                if (required) {
+                    input = input + ' required="required"';
+                }
+            }
+            if (disabled) {
+                input = input + ' disabled="disabled"';
+            }
+            if (readonly) {
+                input = input + ' readonly="readonly"';
+            }
+            if (type=="email" || type==="file") {
+                input = input + ' multiple="multiple"';
+            }
+            input = input + ' />';
+            code = $('<div data-role="fieldcontain"><label for="'+id+'">'+label+'</label>'+input+'</div>');
+
+            //return BWidgetRegistry.Base.applyProperties(node, code);
+            return code;
+        }
     },
 
     /**
      * Represents a camera capture entry
      */
     CameraCapture: {
-		parent: "TextInput",
-		displayLabel: "Camera Capture Input",
+        parent: "TextInput",
+        displayLabel: "Camera Capture Input",
         paletteImageName: "jqm_cameracapture_input.svg",
         properties: {
             id: {
@@ -1250,7 +1389,7 @@ var BWidgetRegistry = {
                     "center": "display: block; margin: 0 auto",
                     "right": "display: block; margin: auto 0px auto auto"
                 }
-            }
+            },
         },
         template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="file" id="%ID%" accept="image/*;capture=camera"/></div>'
 	},
@@ -1258,9 +1397,9 @@ var BWidgetRegistry = {
     /**
      * Represents a video capture entry
      */
-	VideoCapture: {
-		parent: "TextInput",
-		displayLabel: "Video Capture Input",
+    VideoCapture: {
+        parent: "TextInput",
+        displayLabel: "Video Capture Input",
         paletteImageName: "jqm_videocapture_input.svg",
         properties: {
             id: {
@@ -1282,14 +1421,14 @@ var BWidgetRegistry = {
             }
         },
         template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="file" id="%ID%" accept="video/*;capture=camcorder"/></div>'
-	},
+    },
 
     /**
      * Represents a audio capture entry
      */
-     AudioCapture: {
-		parent: "TextInput",
-		displayLabel: "Audio Capture Input",
+    AudioCapture: {
+        parent: "TextInput",
+        displayLabel: "Audio Capture Input",
         paletteImageName: "jqm_audiocapture_input.svg",
         properties: {
             id: {
@@ -1300,187 +1439,8 @@ var BWidgetRegistry = {
             },
         },
         template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="file" id="%ID%" accept="audio/*;capture=microphone"/></div>'
-	 },
-	 
-    /**
-     * Represents a password entry.
-     */
-	 PasswordInput: {
-        parent: "TextInput",
-        displayLabel: "Password Input",
-        paletteImageName: "jqm_password_input.svg",
-        properties: {
-            id: {
-                type: "string",
-                htmlSelector: "input",
-                htmlAttribute: "id",
-                autoGenerate: "password"
-            },
-        },
-        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="password"/></div>'
-	 },
-	 
-    /**
-     * Represents a search entry
-     */
-	SearchInput: {
-        parent: "TextInput",
-        displayLabel: "Search Input",
-        paletteImageName: "jqm_search_input.svg",
-        properties: {
-            id: {
-                type: "string",
-                htmlSelector: "input",
-                htmlAttribute: "id",
-                autoGenerate: "search"
-            },
-        },
-        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="search"/></div>'
-	},
-	
-    /**
-     * Represents a number entry
-     */
-	NumberInput: {
-        parent: "TextInput",
-        displayLabel: "Number Input",
-        paletteImageName: "jqm_number_input.svg",
-        properties: {
-            id: {
-                type: "string",
-                htmlSelector: "input",
-                htmlAttribute: "id",
-                autoGenerate: "number"
-            },
-            minimum: {
-                type: "number",
-                defaultValue: 0,
-                htmlSelector: "input",
-                htmlAttribute: "min"
-			},
-			maximum: {
-                type: "number",
-                defaultValue: 99,
-                htmlSelector: "input",
-                htmlAttribute: "max"
-			},
-        },
-        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="number" min="%MINIMUM%" max="%MAXIMUM%"/></div>'
-	},
-	
-    /**
-     * Represents a date entry
-     */
-	DateInput: {
-        parent: "TextInput",
-        displayLabel: "Date Input",
-        paletteImageName: "jqm_date_input.svg",
-        properties: {
-            id: {
-                type: "string",
-                htmlSelector: "input",
-                htmlAttribute: "id",
-                autoGenerate: "date"
-            },
-        },
-        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="date" /></div>'
-	},
-	
-    /**
-     * Represents a color entry
-     */
-	ColorInput: {
-        parent: "TextInput",
-        displayLabel: "Color Input",
-        paletteImageName: "jqm_color_input.svg",
-        properties: {
-            id: {
-                type: "string",
-                htmlSelector: "input",
-                htmlAttribute: "id",
-                autoGenerate: "color"
-            },
-        },
-        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="color" /></div>'
-	},
-	
-    /**
-     * Represents a email entry
-     */
-	EmailInput: {
-        parent: "TextInput",
-        displayLabel: "Email Input",
-        paletteImageName: "jqm_email_input.svg",
-        properties: {
-            id: {
-                type: "string",
-                htmlSelector: "input",
-                htmlAttribute: "id",
-                autoGenerate: "email"
-            },
-        },
-        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="email" /></div>'
-	},
-	
-	MonthInput: {
-        parent: "TextInput",
-        displayLabel: "Month Input",
-        paletteImageName: "jqm_month_input.svg",
-        properties: {
-            id: {
-                type: "string",
-                htmlSelector: "input",
-                htmlAttribute: "id",
-                autoGenerate: "month"
-            },
-        },
-        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="month" /></div>'
-	},
-	
-	WeekInput: {
-        parent: "TextInput",
-        displayLabel: "Week Input",
-        paletteImageName: "jqm_week_input.svg",
-        properties: {
-            id: {
-                type: "string",
-                htmlSelector: "input",
-                htmlAttribute: "id",
-                autoGenerate: "email"
-            },
-        },
-        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="week" /></div>'
-	},
-	
-	TimeInput: {
-        parent: "TextInput",
-        displayLabel: "Time Input",
-        paletteImageName: "jqm_time_input.svg",
-        properties: {
-            id: {
-                type: "string",
-                htmlSelector: "input",
-                htmlAttribute: "id",
-                autoGenerate: "time"
-            },
-        },
-        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="time" /></div>'
-	},
-	
-	UrlInput: {
-        parent: "TextInput",
-        displayLabel: "URL Input",
-        paletteImageName: "jqm_url_input.svg",
-        properties: {
-            id: {
-                type: "string",
-                htmlSelector: "input",
-                htmlAttribute: "id",
-                autoGenerate: "url"
-            },
-        },
-        template: '<div data-role="fieldcontain"><label for="%ID%">%LABEL%</label><input type="url" /></div>'
-	},
+    },
+ 
 
     /**
      * Represents a text area entry.
@@ -1864,7 +1824,8 @@ var BWidgetRegistry = {
             checked: BCommonProperties.checked,
             mini: BCommonProperties.mini,
             theme: BCommonProperties.theme,
-            disabled: BCommonProperties.disabled
+            disabled: BCommonProperties.disabled,
+            required: BCommonProperties.required
         },
         template: '<input type="checkbox"><label for="%ID%">%LABEL%</label>',
         delegate: 'parent'

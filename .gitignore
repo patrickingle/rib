@@ -2,3 +2,6 @@
 jslint-report.html
 patches/
 *.crx
+/nbproject/private/
+/nbproject
+/rib-master.clpprj
