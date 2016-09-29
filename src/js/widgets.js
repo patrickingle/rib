@@ -117,6 +117,12 @@ var BCommonProperties = {
         // FIXME: would be better to distinguish from the default that
         //        occurs if you leave it off, vs. the default we think
         //        the user is most likely to want
+    },
+    hidden: {
+        type: "boolean",
+        defaultValue: false,
+        htmlAttribute: "hidden",
+        forceAttribute: false
     }
 };
 
@@ -1058,6 +1064,19 @@ var BWidgetRegistry = {
                 visible: false,
             }
         }
+    },
+   
+    Keygen: {
+        parent: "Base",
+        paletteImageName: "jqm_keygen.svg",
+        properties: {
+            id: {
+                type: "string",
+                defaultValue: ""
+            },
+            hidden: BCommonProperties.hidden,
+        },
+        template: '<keygen name="%ID%" />',
     },
 
     /**

@@ -43,7 +43,7 @@
                 }
             ],
             "Media": ["CameraCapture","VideoCapture","AudioCapture"],
-            "HTML5": ["TextInput","CameraCapture","VideoCapture","AudioCapture"]
+            "HTML5": ["TextInput","CameraCapture","VideoCapture","AudioCapture","Keygen"]
         }
     ],
 
