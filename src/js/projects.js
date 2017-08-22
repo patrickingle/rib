@@ -781,7 +781,8 @@ $(function () {
     function checkThumbCss(fileName) {
         var thumbPath = $.rib.pmUtils.toThumbCssPath(fileName);
         $.rib.fsUtils.pathToEntry(thumbPath, null, function (e) {
-            if (e.code === FileError.NOT_FOUND_ERR) {
+            //if (e.code === FileError.NOT_FOUND_ERR) {
+            if (e.code === DOMError.NotFoundError) {
                 // generate a new thumb css
                 $.ajax({
                     type: 'GET',
