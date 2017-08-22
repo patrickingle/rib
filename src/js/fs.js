@@ -155,7 +155,72 @@ $(function () {
      */
     onError: function (err) {
                  var msg = 'Error: ';
+                 console.log(err.code);
                  switch (err.code) {
+                     case DOMError.IndexSizeError:
+                        msg += 'The index is not in the allowed range (e.g. thrown in a range object).';
+                        break;
+                     case DOMError.HierarchyRequestError:
+                        msg += 'The node tree hierarchy is not correct.';
+                        break;
+                     case DOMError.WrongDocumentError:
+                        msg += 'The object is in the wrong document.';
+                        break;
+                     case DOMError.InvalidCharacterError:
+                        msg += 'The string contains invalid characters.';
+                        break;
+                     case DOMError.NoModificationAllowedError:
+                        msg += 'The object can not be modified.';
+                        break;
+                     case DOMError.NotFoundError:
+                        msg += 'The object can not be found here.';
+                        break;
+                     case DOMError.NotSupportedError:
+                        msg += 'The operation is not supported';
+                        break;
+                     case DOMError.InvalidStateError:
+                        msg += 'The object is in an invalid state.';
+                        break;
+                     case DOMError.SyntaxError:
+                        msg += 'The string did not match the expected pattern.';
+                        break;
+                     case DOMError.InvalidModificationError:
+                        msg += 'The object can not be modified in this way.';
+                        break;
+                     case DOMError.NamespaceError:
+                        msg += 'The operation is not allowed by Namespaces in XML';
+                        break;
+                     case DOMError.InvalidAccessError:
+                        msg += 'The object does not support the operation or argument.';
+                        break;
+                     case DOMError.TypeMismatchError:
+                        msg += 'The type of the object does not match the expected type.';
+                        break;
+                     case DOMError.SecurityError:
+                        msg += 'The operation is insecure.';
+                        break;
+                     case DOMError.NetworkError:
+                        msg += 'A network error occurred.';
+                        break;
+                     case DOMError.AbortError:
+                        msg += 'The operation was aborted.';
+                        break;
+                     case DOMError.URLMismatchError:
+                        msg += 'The given URL does not match another URL.';
+                        break;
+                     case DOMError.QuotaExceededError:
+                        msg += 'The quota has been exceeded.';
+                        break;
+                     case DOMError.TimeoutError:
+                        msg += 'The operation timed out.';
+                        break;
+                     case DOMError.InvalidNodeTypeError:
+                        msg += 'The node is incorrect or has an incorrect ancestor for this operation.';
+                        break;
+                     case DOMError.DataCloneError:
+                        msg += 'The object can not be cloned.';
+                        break;
+                     /*
                      case FileError.NOT_FOUND_ERR:
                          msg += 'File or directory not found';
                          break;
@@ -192,6 +257,7 @@ $(function () {
                      case FileError.PATH_EXISTS_ERR:
                          msg += 'File or directory already exists at specified path';
                          break;
+                     */
                      default:
                          msg += 'Unknown Error';
                          break;
