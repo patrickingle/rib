@@ -13,8 +13,12 @@
 window.BlobBuilder = window.BlobBuilder || window.MozBlobBuilder || window.WebKitBlobBuilder;
 window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
 window.resolveLocalFileSystemURL = window.resolveLocalFileSystemURL || window.webkitResolveLocalFileSystemURL;
+/**
+ * FIX: [Deprecation] 'window.webkitStorageInfo' is deprecated. 
+ * Please use 'navigator.webkitTemporaryStorage' or 'navigator.webkitPersistentStorage' instead.
+ */
 //window.storageInfo = window.storageInfo || window.webkitStorageInfo;
-window.storageInfo = navigator.webkitTemporaryStorage || navigator.webkitPersistentStorage;
+window.storageInfo = navigator.webkitPersistentStorage;
 
 /**
  * Global object to access File System utils.
@@ -100,6 +104,15 @@ $(function () {
             return;
         }
         // Check the quota
+        storageInfo.requestQuota (size, function(grantedBytes) {  
+            console.log('we were granted ', grantedBytes, 'bytes');
+            // If the user click the "cancle" button, then create a temporary fs
+            if (grantedBytes <= 0) {
+                type = window.TEMPORARY;
+                grantedBytes = size;
+            }
+            requestFileSystem(type, grantedBytes, successFS, onError);
+        }, onError);
         /*
         storageInfo.queryUsageAndQuota(type, function (usage, quota) {
             // If the quota can't meet requirement, then request more quota
@@ -130,7 +143,6 @@ $(function () {
             }
         }, onError)
         */
-        requestFileSystem(type, size, successFS, onError);
     },
 
     /**
