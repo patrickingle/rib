@@ -155,7 +155,7 @@ $(function () {
      */
     onError: function (err) {
                  var msg = 'Error: ';
-                 console.log(err.code);
+                 
                  switch (err.code) {
                      case DOMError.IndexSizeError:
                         msg += 'The index is not in the allowed range (e.g. thrown in a range object).';
@@ -259,7 +259,8 @@ $(function () {
                          break;
                      */
                      default:
-                         msg += 'Unknown Error';
+                         //msg += 'Unknown Error';
+                         msg += err;
                          break;
                  }
                  console.warn(msg);
@@ -466,7 +467,8 @@ $(function () {
                        }, onError);
                    }
                }, function (e) {
-                   if (e.code === FileError.NOT_FOUND_ERR) {
+                   //if (e.code === FileError.NOT_FOUND_ERR) {
+                   if (e.code === DOMError.NotFoundError) {
                        fsUtils.touch(path, write, onError);
                    } else {
                        onError(e);
