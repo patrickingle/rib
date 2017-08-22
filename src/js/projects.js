@@ -140,16 +140,40 @@ $(function () {
         // check default thumbnail css files
         checkDefaultThumbCss();
         //fill themes info into pmUtils.themesList
+        var isValidURL = function(url) {
+            var encodedURL = encodeURIComponent(url);
+            var isValid = false;
+
+            $.ajax({
+              url: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22" + encodedURL + "%22&format=json",
+              type: "get",
+              async: false,
+              dataType: "json",
+              success: function(data) {
+                isValid = data.query.results != null;
+              },
+              error: function(){
+                isValid = false;
+              }
+            });
+
+            return isValid;
+        }
         var themePath = $.rib.fsUtils.fs.root.toURL() + 'themes.json';
-        $.ajax({
-            type: 'GET',
-            url: themePath,
-            dataType: 'json',
-            success: function (data) {
-                $.extend(true, pmUtils.themesList, data);
-            },
-            async: false
-        });
+        if (isValidURL(themePath)) {
+            $.ajax({
+                type: 'GET',
+                url: themePath,
+                dataType: 'json',
+                success: function (data) {
+                    $.extend(true, pmUtils.themesList, data);
+                },
+                error: function(error) {
+
+                },
+                async: false
+            });
+        }
         var listThemeFiles = function (entries) {
             // make allThemes array empty
             pmUtils.allThemes.length = 0;
